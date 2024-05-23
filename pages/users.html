@@ -1,0 +1,117 @@
+
+<html>
+    <head>
+        <title>Users</title>
+        <link rel="stylesheet" type="text/css" href="../styles/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page">
+            <div class="header">
+                <h1>Users</h1>
+            </div>
+            <div class="navbar">
+                <a href="../index.html">Home</a> |
+                <a href="courses.html">Courses</a> |
+                <a href="enrollments.html">Enrollments</a> |
+                <a href="staff.html">Staff</a> |
+                <a href="instructors.html">Instructors</a> |
+                <a href="users.html">Users</a> |
+                <a href="passwords.html">Passwords</a>
+            </div>
+            <div class="table">
+                <h2>Browse Users</h2>
+                <table>
+                    <tr>
+                        <th><a href="#">New</a></th>
+                        <th></th>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>1</td>
+                        <td>Connore</td>
+                        <td>Schutz</td>
+                        <td>schutzec@osu.edu</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>2</td>
+                        <td>Tristan</td>
+                        <td>Vosburg</td>
+                        <td>vosbrugt@osu.edu</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>3</td>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>johndoe@osu.edu</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>4</td>
+                        <td>Doe</td>
+                        <td>John</td>
+                        <td>opposite@osu.edu</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>4</td>
+                        <td>Mark</td>
+                        <td>Ham</td>
+                        <td>hamm@osu.edu</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="addRow formDiv">
+                <h2>Add User</h2>
+                <form method="POST" id="addUser">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name">
+                    <label for="email">email:</label>
+                    <input type="text" id="email" name="email"><br><br>
+                    <input type="submit" value="Submit">
+                    <input type="button" value="Cancel">
+                </form>
+            </div>
+            <br>
+            <div class="updateRow formDiv">
+                <h2>Update User</h2>
+                <form method="POST" id="updateUser">
+                    <label for="course_id">Course ID:</label> 1
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email"><br><br>
+                    <input type="submit" value="Submit">
+                    <input type="button" value="Cancel">
+                </form>
+            </div>
+            <br>
+            <div class="deleteRow formDiv">
+                <h2>Delete User</h2>
+                <form method="POST" id="deleteUser">
+                    <p>Are you sure you wish to delete the following?</p>
+                    <label>ID:</label> 1
+                        <label> Email </label> schutzec@osu.edu
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

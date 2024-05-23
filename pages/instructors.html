@@ -1,0 +1,112 @@
+
+<html>
+    <head>
+        <title>Instructors</title>
+        <link rel="stylesheet" type="text/css" href="../styles/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page">
+            <div class="header">
+                <h1>Instructors</h1>
+            </div>
+            <div class="navbar">
+                <a href="../index.html">Home</a> |
+                <a href="courses.html">Courses</a> |
+                <a href="enrollments.html">Enrollments</a> |
+                <a href="staff.html">Staff</a> |
+                <a href="instructors.html">Instructors</a> |
+                <a href="users.html">Users</a> |
+                <a href="passwords.html">Passwords</a>
+            </div>
+            <div class="table">
+                <h2>Browse Instructors</h2>
+                <table>
+                    <tr>
+                        <th><a href="#">New</a></th>
+                        <th></th>
+                        <th>Staff ID</th>
+                        <th>Course ID</th>
+                        <th>Staff Bio</th>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>hi im conner</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>hi im connor</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>hi im tristan</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>hi im mark</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="addRow formDiv">
+                <h2>Add Instructor</h2>
+                <form method="POST" id="addUser">
+                    <label for="staff_id">Staff ID:</label>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="course_id">Course ID:</label>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="staff_bio">Staff Bio:</label>
+                    <input type="text" id="staff_bio" name="staff_bio"><br><br>
+                    <input type="submit" value="Submit">
+                    <input type="button" value="Cancel">
+                </form>
+            </div>
+            <br>
+            <div class="updateRow formDiv">
+                <h2>Update Instructor</h2>
+                <form method="POST" id="updateUser">
+                    <label for="staff_id">Staff ID:</label> 1
+                    <label for="course_id">Course ID:</label> 1
+                    <label for="staff_bio">Staff Bio:</label>
+                    <input type="text" id="staff_bio" name="staff_bio"><br><br>
+                    <input type="submit" value="Submit">
+                    <input type="button" value="Cancel">
+                </form>
+            </div>
+            <br>
+            <div class="deleteRow formDiv">
+                <h2>Delete Instructor</h2>
+                <form method="POST" id="deleteUser">
+                    <p>Are you sure you wish to delete the following?</p>
+                    <label>Staff ID:</label> 1
+                    <label>Course ID:</label> 1
+                        <label> Staff Bio: </label> hi im connor
+                </form>
+            </div>
+        
+        </div>
+
+    </body>
+</html>
