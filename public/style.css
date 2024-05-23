@@ -36,3 +36,12 @@ table td{
     margin: 0 auto;
     padding: 0;
 }
+
+
+.updateRow {
+    display: none;
+}
+
+.deleteRow {
+    display: none;
+}

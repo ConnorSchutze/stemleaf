@@ -4,7 +4,11 @@
   "description": "stemleaf app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+    
+
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +16,10 @@
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
     "forever": "^4.0.3",
+    "handlebars": "^4.7.8",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

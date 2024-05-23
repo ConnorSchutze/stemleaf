@@ -1,0 +1,48 @@
+<br>
+<div class="addRow formDiv">
+    <h2>Add Instructor</h2>
+    <form method="POST" id="addUser">
+        <label for="staff_id">Staff ID:</label>
+        <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <label for="course_id">Course ID:</label>
+        <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <label for="staff_bio">Staff Bio:</label>
+        <input type="text" id="staff_bio" name="staff_bio"><br><br>
+        <input type="submit" value="Submit">
+        <input type="button" value="Cancel">
+    </form>
+</div>
+<br>
+<div class="updateRow formDiv">
+    <h2>Update Instructor</h2>
+    <form method="POST" id="updateUser">
+        <label for="StaffID" id="StaffIDUpdate">Staff ID: <span >1</span></label> 
+        <label for="CourseID" id="CourseIDUpdate">Course ID: <span>1</span></label> 
+        <label for="StaffBio" id="StaffBioUpdate">Staff Bio: <input type="text" id="staff_bio" name="staff_bio"></label>
+        <br><br>
+        <input type="submit" value="Submit">
+        <input type="button" value="Cancel">
+    </form>
+</div>
+<br>
+<div class="deleteRow formDiv">
+    <h2>Delete Instructor</h2>
+    <form method="POST" id="deleteUser">
+        <p>Are you sure you wish to delete the following?</p>
+        <label for="StaffID" id="StaffIDDelete">Staff ID: <span >1</span></label>
+        <label for="CourseID" id="CourseIDDelete">Course ID: <span >1</span></label>
+        <label for="StaffBio" id="StaffBioDelete"> Staff Bio: <span >1</span></label>
+        <br><br>
+        <input type="submit" value="Submit">
+        <input type="button" value="Cancel">
+    </form>
+</div>
+<br>

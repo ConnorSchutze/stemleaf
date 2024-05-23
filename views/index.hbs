@@ -6,7 +6,13 @@
 
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
-        <tr>
+        <tr id="headerRow">
+            <th>
+                Update
+            </th>
+            <th>
+                Delete
+            </th>
             {{#each data.[0]}}
             <th>
                 {{@key}}
@@ -21,11 +27,19 @@
         {{!-- For each row, print the user_id, first_name, last_name, and email, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.user_id}}</td>
-            <td>{{this.first_name}}</td>
-            <td>{{this.last_name}}</td>
-            <td>{{this.email}}</td>
+            <td>
+                <button class="updateButton" onclick="setUpdateTableToValues(event)">Update</button>
+            </td>
+            <td>
+                <button class="deleteButton" onclick="setDeleteTableToValues(event)">Delete</button>
+            </td>
+            <td class="data">{{this.StaffID}}</td>
+            <td class="data">{{this.CourseID}}</td>
+            <td class="data">{{this.StaffBio}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+{{!-- Make a way to differentiate between all tables --}}
+{{> InstructorCRUD}}
+
