@@ -21,15 +21,17 @@
 
         {{!-- For each row, print the user_id, first_name, last_name, and email, in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.instructor_id}}>
             <td class="data">{{this.instructor_id}}</td>
             <td class="data">{{this.staff_id}}</td>
             <td class="data">{{this.course_id}}</td>
             <td class="data">{{this.staff_bio}}</td>
+            <td><button onclick="delete_instructor({{this.instructor_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_instructor.js"></script>
 
 {{!-- Form to search by course --}}
 <h2>Search Instructors</h2>

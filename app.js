@@ -162,6 +162,27 @@ app.post('/add-instructor-ajax', function(req, res)
     })
 });
 
+app.delete('/delete-instructor-ajax/', function(req,res,next){
+    let data = req.body;
+    let instructor_id = parseInt(data.instructor_id);
+    let delete_instructor = `DELETE FROM Instructors WHERE instructor_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(delete_instructor, [instructor_id], function(error, rows, fields){
+              if (error) {
+  
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+              }
+  
+              else
+              {
+                res.sendStatus(204);
+              }
+})});
+
 /*
     LISTENER
 */
