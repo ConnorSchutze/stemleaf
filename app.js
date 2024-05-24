@@ -49,12 +49,13 @@ app.get('/', function(req, res)
 
     else
     {
-        query1 = ' \
+        console.log(req.query);
+        query1 = ` \
             SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
             FROM Instructors \
             INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
             WHERE Courses.name LIKE "${req.query.course_name}%"; \
-        ';
+        `;
     }
 
     let query2 = " \
