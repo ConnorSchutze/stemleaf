@@ -99,4 +99,21 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
+
+    // Start of new Step 8 code for adding new data to the dropdown menu for updating people
+    
+    // Find drop down menu, create a new option, fill data in the option (full name, id),
+    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    let staff_menu = document.getElementById("input-staff_id-update");
+    let staff_option = document.createElement("option");
+    staff_option.text = newRow.staff_id; // Assuming newRow has staff_id as text. Adjust if needed.
+    staff_option.value = newRow.staff_id;
+    staff_menu.add(staff_option);
+
+    let course_menu = document.getElementById("input-course_id-update");
+    let course_option = document.createElement("option");
+    course_option.text = newRow.course_id; // Assuming newRow has course_id as text. Adjust if needed.
+    course_option.value = newRow.course_id;
+    course_menu.add(course_option);
+    // End of new step 8 code.
 }

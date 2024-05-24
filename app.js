@@ -16,15 +16,6 @@ PORT = 10256;
 var db = require('./database/db-connector');
 
 // Handlebars
-//var exphbs = require('express-handlebars');
-//const { query } = require('express');
-//app.engine('.hbs', exphbs({
-//    extname: ".hbs"
-//}));
-//app.set('view engine', '.hbs');
-// IDK why this doesn't work
-
-// Handlebars
 var { engine } = require('express-handlebars');
 const { out } = require('forever');
 app.engine('.hbs', engine({
@@ -183,9 +174,45 @@ app.delete('/delete-instructor-ajax/', function(req,res,next){
               }
 })});
 
+app.put('/put-instructor-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let staff_id = parseInt(data.staff_id);
+    let course_id = parseInt(data.course_id);
+    let staff_bio = data.staff_bio;
+  
+    let query_update_instructor = 'UPDATE Instructors SET staff_bio = ? WHERE staff_id = ? AND course_id = ?';
+    let select_instructor = `SELECT * FROM Instructors WHERE staff_id = ? AND course_id = ?`;
+  
+        // Run the 1st query
+        db.pool.query(query_update_instructor, [staff_bio, staff_id, course_id], function(error, rows, fields){
+            if (error) {
+
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(select_instructor, [staff_id, course_id], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
+
 /*
     LISTENER
 */
 app.listen(PORT, function(){
-    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+    console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.')
 });

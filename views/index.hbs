@@ -73,3 +73,31 @@
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_instructor.js"></script>
 
+<h2>Updating Instructors</h2>
+<p>To update a specific instructors bio select their name and the course being changed from the drop-down menu</p>
+<form id="update-instructor-form-ajax">
+
+    <label for="input-staff_id-update">Staff: </label>
+    <select name="input-staff_id-update" id="input-staff_id-update">
+        <option value="">Select a Person</option>
+        {{#each staff}}
+        <option value="{{this.staff_id}}">{{this.last_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-course_id-update">Course: </label>
+    <select name="input-course_id-update" id="input-course_id-update">
+        <option value="">Select a Course</option>
+        {{#each courses}}
+        <option value="{{this.course_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-staff_bio-update">Staff Bio: </label>
+    <input type="text" name="input-staff_bio-update" id="input-staff_bio-update">
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_instructor.js"></script>
