@@ -81,7 +81,8 @@ CREATE OR REPLACE TABLE Instructors
     staff_bio VARCHAR(150),
     PRIMARY KEY (instructor_id),
     FOREIGN KEY (staff_id) REFERENCES Staff(staff_id) ON DELETE CASCADE,
-    FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE,
+    UNIQUE (staff_id, course_id)
 );
 
 INSERT INTO Users (first_name, last_name, email)

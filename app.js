@@ -42,14 +42,12 @@ app.get('/', function(req, res)
         query1 = ' \
             SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
             FROM Instructors \
-            INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
+            INNER JOIN Courses ON Instructors.course_id = Courses.course_id; \
         ';
-
     }
 
     else
     {
-        console.log(req.query);
         query1 = ` \
             SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
             FROM Instructors \
@@ -101,7 +99,7 @@ app.get('/', function(req, res)
                     course_map[id] = c.name;
                 });
 
-                // Overwrite the staff_id with the last name of the staff member in the instructors object
+                // Overwrite the course_id with the name of the course in the instructors object
                 instructors = instructors.map(instructor => {
                     return Object.assign(instructor, { course_id: course_map[instructor.course_id] });
                 });
@@ -121,7 +119,10 @@ app.post('/add-instructor-ajax', function(req, res)
     // Capture NULL values
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Instructors (staff_id, course_id, staff_bio) VALUES (${data.staff_id}, ${data.course_id}, '${data.staff_bio}')`;
+    query1 = ` \
+        INSERT INTO Instructors (staff_id, course_id, staff_bio) \
+        VALUES (${data.staff_id}, ${data.course_id}, '${data.staff_bio}') \
+    `;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -133,8 +134,12 @@ app.post('/add-instructor-ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM Instructors;`;
+            query2 = ' \
+                SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
+                FROM Instructors \
+                INNER JOIN Courses ON Instructors.course_id = Courses.course_id; \
+            ';
+
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -183,7 +188,13 @@ app.put('/put-instructor-ajax', function(req,res,next){
     let staff_bio = data.staff_bio;
   
     let query_update_instructor = 'UPDATE Instructors SET staff_bio = ? WHERE staff_id = ? AND course_id = ?';
-    let select_instructor = `SELECT * FROM Instructors WHERE staff_id = ? AND course_id = ?`;
+    // let select_instructor = `SELECT * FROM Instructors WHERE staff_id = ? AND course_id = ?`;
+    let select_instructor = ` \
+        SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
+        FROM Instructors \
+        INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
+        WHERE Instructors.staff_id = ? AND Instructors.course_id = ?; \
+    `;
   
         // Run the 1st query
         db.pool.query(query_update_instructor, [staff_bio, staff_id, course_id], function(error, rows, fields){
