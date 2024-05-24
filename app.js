@@ -82,9 +82,37 @@ app.get('/', function(req, res)
 
             let staff = rows;
 
+            // Construct an object for reference in the table
+            // Array.map is awesome for doing something with each
+            // element of an array.
+            let staff_map = {};
+            staff.map(s => {
+                let id = parseInt(s.staff_id, 10);
+                staff_map[id] = s.last_name;
+            });
+
+            // Overwrite the staff_id with the last name of the staff member in the instructors object
+            instructors = instructors.map(instructor => {
+                return Object.assign(instructor, { staff_id: staff_map[instructor.staff_id] });
+            });
+
             db.pool.query(query3, (error, rows, field) => {
 
                 let courses = rows
+
+                // Construct an object for reference in the table
+                // Array.map is awesome for doing something with each
+                // element of an array.
+                let course_map = {};
+                courses.map(c => {
+                    let id = parseInt(c.course_id, 10);
+                    course_map[id] = c.name;
+                });
+
+                // Overwrite the staff_id with the last name of the staff member in the instructors object
+                instructors = instructors.map(instructor => {
+                    return Object.assign(instructor, { course_id: course_map[instructor.course_id] });
+                });
 
                 return res.render('index', {data: instructors, staff: staff, courses: courses});
             })
