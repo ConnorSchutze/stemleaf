@@ -6,6 +6,10 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+
 PORT = 10256;
 
 // Database
@@ -32,18 +36,103 @@ app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 /*
     ROUTES
 */
 app.get('/', function(req, res)
+{
+    // does this need to reference the .sql files in the future?
+    // this is better than getting 1-few lines from an sql file, more efficient, less dynamic
+
+    let query1;
+
+    if (req.query.course_name === undefined || req.query.course_name === "")
     {
-        //does this need to reference the .sql files in the future?
-        let query1 = "SELECT staff_id AS StaffID, course_id AS CourseID, staff_bio AS StaffBio FROM Instructors;";
-        db.pool.query(query1, function(error, rows, fields){
-            res.render('index', {data: rows});
+        query1 = ' \
+            SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
+            FROM Instructors \
+            INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
+        ';
+
+    }
+
+    else
+    {
+        query1 = ' \
+            SELECT Instructors.instructor_id, Instructors.staff_id, Instructors.course_id, Instructors.staff_bio \
+            FROM Instructors \
+            INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
+            WHERE Courses.name LIKE "${req.query.course_name}%"; \
+        ';
+    }
+
+    let query2 = " \
+        SELECT Staff.staff_id, Users.first_name, Users.last_name, Staff.start_date \
+        FROM Staff \
+        INNER JOIN Users ON Staff.user_id = Users.user_id; \
+    ";
+
+    let query3 = "SELECT * FROM Courses;";
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        let instructors = rows;
+
+        db.pool.query(query2, (error, rows, field) => {
+
+            let staff = rows;
+
+            db.pool.query(query3, (error, rows, field) => {
+
+                let courses = rows
+
+                return res.render('index', {data: instructors, staff: staff, courses: courses});
+            })
         })
-    });
+    })
+});
+
+// POST ROUTES
+app.post('/add-instructor-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Instructors (staff_id, course_id, staff_bio) VALUES (${data.staff_id}, ${data.course_id}, '${data.staff_bio}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Instructors;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 /*
     LISTENER

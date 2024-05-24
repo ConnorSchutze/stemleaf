@@ -83,16 +83,15 @@ WHERE staff_id = :staff_id_key;
 
 -- get data for a particular Instructor course
 SELECT * FROM Instructors 
-WHERE staff_id = :staff_id_key AND course_id = :course_id_key;
+WHERE instructor_id = :instructor_id_key;
 
 -- update an Instructor's information
 UPDATE Instructors
 SET staff_id = :staff_id_key, course_id = :course_id_key, staff_bio = :staff_bio_input;
-WHERE staff_id = :staff_id_key AND course_id = :course_id_key;
+WHERE instructor_id = :instructor_id_key;
 
 -- delete an Instructor
-DELETE FROM Instructors
-WHERE staff_id = :staff_id_key AND course_id = :course_id_key;
+DELETE FROM Instructors WHERE instructor_id = :instructor_id_key;
 
 -- -----------------------------------------------------
 -- Courses

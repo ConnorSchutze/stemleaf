@@ -75,10 +75,11 @@ CREATE OR REPLACE TABLE Courses
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Instructors
 (
+    instructor_id INT NOT NULL AUTO_INCREMENT,
     staff_id INT NOT NULL,
     course_id INT NOT NULL,
     staff_bio VARCHAR(150),
-    PRIMARY KEY (staff_id, course_id),
+    PRIMARY KEY (instructor_id),
     FOREIGN KEY (staff_id) REFERENCES Staff(staff_id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );

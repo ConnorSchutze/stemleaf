@@ -1,5 +1,6 @@
+<h2>Read Instructors</h2>
 {{!-- Create a table --}}
-<table>
+<table id="instructors-table">
 
     {{!-- Header section --}}
     <thead>
@@ -7,12 +8,6 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr id="headerRow">
-            <th>
-                Update
-            </th>
-            <th>
-                Delete
-            </th>
             {{#each data.[0]}}
             <th>
                 {{@key}}
@@ -27,19 +22,52 @@
         {{!-- For each row, print the user_id, first_name, last_name, and email, in order --}}
         {{#each data}}
         <tr>
-            <td>
-                <button class="updateButton" onclick="setUpdateTableToValues(event)">Update</button>
-            </td>
-            <td>
-                <button class="deleteButton" onclick="setDeleteTableToValues(event)">Delete</button>
-            </td>
-            <td class="data">{{this.StaffID}}</td>
-            <td class="data">{{this.CourseID}}</td>
-            <td class="data">{{this.StaffBio}}</td>
+            <td class="data">{{this.instructor_id}}</td>
+            <td class="data">{{this.staff_id}}</td>
+            <td class="data">{{this.course_id}}</td>
+            <td class="data">{{this.staff_bio}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-{{!-- Make a way to differentiate between all tables --}}
-{{> InstructorCRUD}}
+
+{{!-- Form to search by course --}}
+<h2>Search Instructors</h2>
+<p>Search by course using the field below. Partial names are OK too!</p>
+<form id="search_course_html" method='GET' action='/'>
+    <label for="input-course_id">Search by Course Name: </label>
+    <input type="text" name="course_name" id="input-course_id_search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Instructors</h2>
+<p>To add a new Instructor, please enter their information below and click 'Submit'!</p>
+<form id="add-instructor-form-ajax">
+    <label for="input-staff_id">Staff: </label>
+    <select name="input-staff_id" id="input-staff_id">
+        <option value="">Select a Staff member</option>
+        {{#each staff}}
+        <option value="{{this.staff_id}}">{{this.last_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-course_id">Course: </label>
+    <select name="input-course_id" id="input-course_id">
+        <option value="">Select a Course</option>
+        {{#each courses}}
+        <option value="{{this.course_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-staff_bio">Staff Bio: </label>
+    <input type="text" name="input-staff_bio" id="input-staff_bio">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_instructor.js"></script>
 
