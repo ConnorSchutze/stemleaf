@@ -1,16 +1,18 @@
 // Get the objects we need to modify
-let addInstructorForm = document.getElementById('add-instructor-form-ajax');
+let add_instructors_form = document.getElementById('add_instructors_form');
 
 // Modify the objects we need
-addInstructorForm.addEventListener("submit", function (e) {
+add_instructors_form.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
 
+    console.log("Here: add person listnere");
+
     // Get form fields we need to get data from
-    let input_staff_id = document.getElementById("input-staff_id");
-    let input_course_id = document.getElementById("input-course_id");
-    let input_staff_bio = document.getElementById("input-staff_bio");
+    let input_staff_id = document.getElementById("input_instructors_staff_add");
+    let input_course_id = document.getElementById("input_instructors_course_add");
+    let input_staff_bio = document.getElementById("input_instructors_bio_add");
 
     // Get the values from the form fields
     let staff_id_value = input_staff_id.value;
@@ -26,15 +28,15 @@ addInstructorForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-instructor-ajax", true);
+    xhttp.open("POST", "/instructors/add/", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
+            let new_instructor = JSON.parse(xhttp.response)[0];
             // Add the new data to the table
-            addRowToTable(xhttp.response);
+            add_row_to_instructors(new_instructor);
 
             // Clear the input fields for another transaction
             input_staff_id.value = '';
@@ -54,49 +56,42 @@ addInstructorForm.addEventListener("submit", function (e) {
 
 // Creates a single row from an Object representing a single record from 
 // bsg_people
-addRowToTable = (data) => {
+add_row_to_instructors = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("instructors-table");
+    let instructors_table = document.getElementById("instructors_table");
 
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
-
-    // Create a row and 4 cells
+    // Create a row and 5 cells
     let row = document.createElement("TR");
-    let instructor_id_cell = document.createElement("TD");
-    let staff_id_cell = document.createElement("TD");
-    let course_id_cell = document.createElement("TD");
-    let staff_bio_cell = document.createElement("TD");
-
+    let id_cell = document.createElement("TD");
+    let staff_cell = document.createElement("TD");
+    let course_cell = document.createElement("TD");
+    let bio_cell = document.createElement("TD");
     let delete_cell = document.createElement("TD");
 
     // Fill the cells with correct data
-    instructor_id_cell.innerText = newRow.instructor_id;
-    staff_id_cell.innerText = newRow.staff_id;
-    course_id_cell.innerText = newRow.course_id;
-    staff_bio_cell.innerText = newRow.staff_bio;
+    id_cell.innerText = data.id;
+    staff_cell.innerText = data.staff;
+    course_cell.innerText = data.course;
+    bio_cell.innerText = data.bio;
 
-    delete_cell = document.createElement("button");
-    delete_cell.innerHTML = "Delete";
-    delete_cell.onclick = function(){
-        delete_instructor(newRow.instructor_id);
+    let delete_button = document.createElement("button");
+    delete_button.innerHTML = "Delete";
+    delete_button.onclick = function(){
+        delete_instructor(data.id);
     };
+    delete_cell.appendChild(delete_button);
 
     // Add the cells to the row 
-    row.appendChild(instructor_id_cell);
-    row.appendChild(staff_id_cell);
-    row.appendChild(course_id_cell);
-    row.appendChild(staff_bio_cell);
+    row.appendChild(id_cell);
+    row.appendChild(staff_cell);
+    row.appendChild(course_cell);
+    row.appendChild(bio_cell);
     row.appendChild(delete_cell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
-    row.setAttribute('data-value', newRow.instructor_id);
+    row.setAttribute('data-value', data.id);
     
     // Add the row to the table
-    currentTable.appendChild(row);
+    instructors_table.appendChild(row);
 }
