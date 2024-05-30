@@ -85,7 +85,11 @@ exports.add_instructor = (req, res, next) => {
 };
 
 exports.update_instructor = (req, res, next) => {
-    const { staff_id, course_id, staff_bio } = req.body;
+    const data = req.body;
+
+    const staff_id = parseInt(data.staff_id);
+    const course_id = parseInt(data.course_id);
+    const staff_bio = data.staff_bio;
 
     const update_instructor_query = ` \
         UPDATE Instructors \
@@ -107,7 +111,10 @@ exports.update_instructor = (req, res, next) => {
                 Courses.name AS course, \
                 Instructors.staff_bio AS bio \
                 FROM Instructors \
-                WHERE staff_id = ? AND course_id = ?; \
+                INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
+                INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id \
+                INNER JOIN Users ON Staff.user_id = Users.user_id \
+                WHERE Instructors.staff_id = ? AND Instructors.course_id = ?; \
             `;
             db.pool.query(get_update_instructor_query, [staff_id, course_id], (error, rows, fields) => {
                 return res.json(rows);

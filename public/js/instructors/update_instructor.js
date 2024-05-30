@@ -52,7 +52,7 @@ update_instructor_form.addEventListener("submit", function (e) {
 function update_instructor_row(data, staff_id, course_id){
     let parsedData = JSON.parse(data);
     
-    let table = document.getElementById("instructors-table");
+    let table = document.getElementById("instructors_table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         let instructor_id_key = row.getAttribute("data-value");
