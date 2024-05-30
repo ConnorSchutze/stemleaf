@@ -59,7 +59,7 @@ exports.add_instructor = (req, res, next) => {
     const add_instructors_query = ` \
         INSERT INTO Instructors (staff_id, course_id, staff_bio) \
         VALUES (?, ?, ?); \
-    `
+    `;
 
     const new_instructor_data = [staff_id, course_id, staff_bio];
 

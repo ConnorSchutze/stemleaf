@@ -34,11 +34,11 @@ const users_routes = require('./routes/users');
 // Use the public folder for static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/courses', courses_routes);
-//app.use('/enrollments', enrollments_routes);
+app.use('/courses', courses_routes);
+app.use('/enrollments', enrollments_routes);
 app.use('/instructors', instructors_routes);
-//app.use('/staff', staff_routes);
-//app.use('/users', users_routes);
+app.use('/staff', staff_routes);
+app.use('/users', users_routes);
 
 /*
     ROUTES
