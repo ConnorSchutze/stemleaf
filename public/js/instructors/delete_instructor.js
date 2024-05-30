@@ -1,21 +1,19 @@
-function delete_instructor(instructor_id) {
+function delete_instructor_id(id) {
+    console.log("delete_instructor: start");
     // Put our data we want to send in a javascript object
     let data = {
-        instructor_id: instructor_id
+        id: id
     };
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-instructor-ajax", true);
+    xhttp.open("DELETE", `/instructors/delete/${id}`, true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
-
-            // Add the new data to the table
-            deleteRow(instructor_id);
-
+            delete_instructor_row(id);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
@@ -26,13 +24,10 @@ function delete_instructor(instructor_id) {
 }
 
 
-function deleteRow(instructor_id){
-
-    let table = document.getElementById("instructors-table");
+function delete_instructor_row(id){
+    let table = document.getElementById("instructors_table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == instructor_id) {
+       if (table.rows[i].getAttribute("data-value") == id) {
             table.deleteRow(i);
             break;
        }

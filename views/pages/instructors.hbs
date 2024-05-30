@@ -20,12 +20,12 @@
             <td class="data">{{this.staff}}</td>
             <td class="data">{{this.course}}</td>
             <td class="data">{{this.bio}}</td>
-            <td><button onclick="delete_instructor({{this.id}})">Delete</button></td>
+            <td><button onclick="delete_instructor_id({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-{{!-- <script src="./js/instructors/delete_instructor.js"></script> --}}
+<script src="./js/instructors/delete_instructor.js"></script>
 
 {{!-- Form to search by course --}}
 <h2>Search Instructors</h2>

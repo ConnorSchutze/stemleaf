@@ -7,8 +7,6 @@ add_instructors_form.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
-    console.log("Here: add person listnere");
-
     // Get form fields we need to get data from
     let input_staff_id = document.getElementById("input_instructors_staff_add");
     let input_course_id = document.getElementById("input_instructors_course_add");
@@ -78,7 +76,7 @@ add_row_to_instructors = (data) => {
     let delete_button = document.createElement("button");
     delete_button.innerHTML = "Delete";
     delete_button.onclick = function(){
-        delete_instructor(data.id);
+        delete_instructor_id(data.id);
     };
     delete_cell.appendChild(delete_button);
 

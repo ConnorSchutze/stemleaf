@@ -89,5 +89,19 @@ exports.update_instructor = (req, res, next) => {
 };
 
 exports.delete_instructor = (req, res, next) => {
-    // Add logic to handle deleting an existing instructor
+    const instructor_id = req.params.id;
+
+    const delete_instructor_query = ` \
+        DELETE FROM Instructors \
+        WHERE instructor_id = ?; \
+    `;
+
+    db.pool.query(delete_instructor_query, [instructor_id], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
 };
