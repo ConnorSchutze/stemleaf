@@ -1,1 +1,90 @@
 <h2>Read Staff</h2>
+<table id="staff_table">
+
+    <thead>
+        <tr id="headerRow">
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    <tbody id="staff_table_body">
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td class="data">{{this.id}}</td>
+            <td class="data">{{this.staff_name}}</td>
+            <td class="data">{{this.start_date}}</td>
+            <td class="data">{{this.chg_hour}}</td>
+            <td><button onclick="delete_staff_id({{this.id}}, '{{this.staff_name}}')">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="/js/staff/delete_staff.js"></script>
+
+{{!-- Form to search by name --}}
+<h2>Search Staff</h2>
+<p>Search by name using the field below. Partial names are OK too!</p>
+<form id="search_instructors" method="GET" action='/staff/'>
+    <label for="input_staff_search">Search by Staff Name: </label>
+    <input type="text" name="staff_name" id="input_staff_search">
+
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Staff</h2>
+<p>To add a new Staff member, please enter their information below and click 'Submit'!</p>
+<form id="add_staff_form">
+    <label for="input_staff_user">User: </label>
+    <select name="input_user_id" id="input_staff_user_add">
+        <option value="">Select a User</option>
+        {{#each users}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_staff_start_date">Start Date: </label>
+    <input type="date" name="input_start_date" id="input_staff_start_date_add">
+
+    <label for="input_staff_chg_hour">Charge Hour: </label>
+    <input type="number" name="input_chg_hour" id="input_staff_chg_hour_add">
+
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="/js/staff/add_staff.js"></script>
+
+<h2>Update Staff</h2>
+<p>To update a specific staff member's info, select their name from the drop-down menu</p>
+<form id="update_staff_form">
+
+    <label for="input_staff_user">User: </label>
+    <select name="input_user_id" id="input_staff_user_update">
+        <option value="">Select a User</option>
+        {{#each update}}
+        <option value="{{this.id}}">{{this.staff_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_staff_start_date">Start Date: </label>
+    <input type="date" name="input_start_date" id="input_staff_start_date_update">
+
+    <label for="input_staff_chg_hour">Charge Hour: </label>
+    <input type="number" name="input_chg_hour" id="input_staff_chg_hour_update">
+
+    <input type="submit">
+</form>
+
+<script src="/js/staff/update_staff.js"></script>
+
+
+
+
