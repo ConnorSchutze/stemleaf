@@ -1,1 +1,66 @@
 <h2>Read Enrollments</h2>
+<table id="enrollments_table">
+
+    <thead>
+
+        <tr id="headerRow">
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td class="data">{{this.id}}</td>
+            <td class="data">{{this.status}}</td>
+            <td class="data">{{this.grade}}</td>
+            <td class="data">{{this.user}}</td>
+            <td class="data">{{this.course}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Search Enrollments</h2>
+<p>Search by user's last name using the field below. Partial names are OK too!</p>
+<form id="search_enrollments" method='GET' action='/enrollments/'>
+    <label for="input_enrollments_search">Search by user's last name: </label>
+    <input type="text" name="last_name" id="input_enrollments_search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+<h2>Add Enrollments</h2>
+<p>To add a new Enrollment, please enter the information below and click 'Submit'!</p>
+<form id="add_enrollments_form">
+    <label for="input_enrollments_status">Status: </label>
+    <input type="checkbox" name="input_status" id="input_enrollments_status_add">
+
+    <label for="input_enrollments_grade">Grade: </label>
+    <input type="text" name="input_grade" id="input_enrollments_grade_add">
+
+    <label for="input_enrollments_staff">User: </label>
+    <select name="input_user_id" id="input_enrollments_user_add">
+        <option value="">Select a User</option>
+        {{#each users}}
+        <option value="{{this.user_id}}">{{this.first_name}} {{this.last_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_enrollments_course">Course: </label>
+    <select name="input_course_id" id="input_enrollments_course_add">
+        <option value="">Select a Course</option>
+        {{#each courses}}
+        <option value="{{this.course_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+<script src="/js/enrollments/add_enrollment.js"></script>
