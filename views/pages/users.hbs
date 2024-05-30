@@ -1,1 +1,55 @@
 <h2>Read Users</h2>
+<table id="users_table">
+
+    <thead>
+
+        <tr id="headerRow">
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td class="data">{{this.id}}</td>
+            <td class="data">{{this.first}}</td>
+            <td class="data">{{this.last}}</td>
+            <td class="data">{{this.email}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Search Users</h2>
+<p>Search by first name using the field below. Partial names are OK too!</p>
+<form id="search_users" method='GET' action='/users/'>
+    <label for="input_users_search">Search by Name: </label>
+    <input type="text" name="first_name" id="input_users_search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+<h2>Add Users</h2>
+<p>To add a new User, please enter their information below and click 'Submit'!</p>
+<form id="add_users_form">
+    <label for="input_users_first_name">First Name: </label>
+    <input type="text" name="input_first_name" id="input_users_first_name_add">
+
+    <label for="input_users_last_name">Last Name: </label>
+    <input type="text" name="input_last_name" id="input_users_last_name_add">
+
+    <label for="input_users_email">Email: </label>
+    <input type="text" name="input_email" id="input_users_email_add">
+
+    <label for="input_passwords_password">Password: </label>
+    <input type="password" name="input_password" id="input_passwords_password_add">
+
+    <input type="submit">
+</form>
+
+<script src="/js/users/add_user.js"></script>
