@@ -1,0 +1,54 @@
+/* based on https://www.w3schools.com/css/css_navbar_horizontal.asp */
+
+body {
+    margin: 0;
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul.topnav::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+ul.topnav li {
+    float: left;
+    margin-right: 10px;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+ul.topnav li a:hover:not(.active) {
+    background-color: #111;
+}
+
+ul.topnav li a.active {
+    background-color: #04AA6D;
+}
+
+ul.topnav li.right {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {
+        float: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

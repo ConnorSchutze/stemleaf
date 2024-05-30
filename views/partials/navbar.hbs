@@ -1,12 +1,28 @@
 <!-- navbar.hbs -->
+<link rel="stylesheet" type="text/css" href="/css/navbar.css">
+
 <nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/courses">Courses</a></li>
-        <li><a href="/enrollments">Enrollments</a></li>
-        <li><a href="/instructors">Instructors</a></li>
-        <li><a href="/staff">Staff</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="/passwords">Passwords</a></li>
+    <ul class="topnav">
+        <li>
+            <a class="{{#if (isActivePage '/' activePage)}}active{{/if}}" href="/">Home</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/courses' activePage)}}active{{/if}}" href="/courses">Courses</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/enrollments' activePage)}}active{{/if}}" href="/enrollments">Enrollments</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/instructors' activePage)}}active{{/if}}" href="/instructors">Instructors</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/staff' activePage)}}active{{/if}}" href="/staff">Staff</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/users' activePage)}}active{{/if}}" href="/users">Users</a>
+        </li>
+        <li>
+            <a class="{{#if (isActivePage '/passwords' activePage)}}active{{/if}}" href="/passwords">Passwords</a>
+        </li>
     </ul>
 </nav>

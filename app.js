@@ -22,6 +22,18 @@ app.engine('.hbs', engine({
 }));
 app.set('view engine', '.hbs');
 
+// Register Handlebars helper function
+const handlebars = require('handlebars');
+handlebars.registerHelper('isActivePage', function(path, activePage) {
+    return path === activePage;
+});
+
+// Middleware to set active page
+app.use((req, res, next) => {
+    res.locals.activePage = req.path;
+    next();
+});
+
 const { out } = require('forever');
 
 // Routes
