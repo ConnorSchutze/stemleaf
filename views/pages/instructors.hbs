@@ -25,7 +25,7 @@
         {{/each}}
     </tbody>
 </table>
-<script src="./js/instructors/delete_instructor.js"></script>
+<script src="/js/instructors/delete_instructor.js"></script>
 
 {{!-- Form to search by course --}}
 <h2>Search Instructors</h2>
@@ -65,33 +65,33 @@
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/instructors/add_instructor.js"></script>
+<script src="/js/instructors/add_instructor.js"></script>
 
-{{!-- <h2>Updating Instructors</h2>
+<h2>Updating Instructors</h2>
 <p>To update a specific instructors bio select their name and the course being changed from the drop-down menu</p>
-<form id="update-instructor-form-ajax">
+<form id="update_instructor_form">
 
-    <label for="input-staff_id-update">Staff: </label>
-    <select name="input-staff_id-update" id="input-staff_id-update">
+    <label for="input_instructors_staff_update">Staff: </label>
+    <select name="input_staff_id" id="input_instructors_staff_update">
         <option value="">Select a Person</option>
         {{#each staff}}
-        <option value="{{this.staff_id}}">{{this.last_name}}</option>
+        <option value="{{this.staff_id}}">{{this.first_name}} {{this.last_name}}</option>
         {{/each}}
     </select>
 
-    <label for="input-course_id-update">Course: </label>
-    <select name="input-course_id-update" id="input-course_id-update">
+    <label for="input_instructors_course_update">Course: </label>
+    <select name="input_course_id" id="input_instructors_course_update">
         <option value="">Select a Course</option>
         {{#each courses}}
         <option value="{{this.course_id}}">{{this.name}}</option>
         {{/each}}
     </select>
 
-    <label for="input-staff_bio-update">Staff Bio: </label>
-    <input type="text" name="input-staff_bio-update" id="input-staff_bio-update">
+    <label for="input_instructors_bio_update">Staff Bio: </label>
+    <input type="text" name="input_staff_bio" id="input_instructors_bio_update">
 
     <input type="submit">
 
 </form>
 
-<script src="./js/instructors/update_instructor.js"></script> --}}
+<script src="/js/instructors/update_instructor.js"></script>

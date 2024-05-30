@@ -85,7 +85,35 @@ exports.add_instructor = (req, res, next) => {
 };
 
 exports.update_instructor = (req, res, next) => {
-    // Add logic to handle updating an existing instructor
+    const { staff_id, course_id, staff_bio } = req.body;
+
+    const update_instructor_query = ` \
+        UPDATE Instructors \
+        SET staff_bio = ? \
+        WHERE staff_id = ? AND course_id = ?; \
+    `;
+
+    const update_instructor_data = [staff_bio, staff_id, course_id];
+
+    db.pool.query(update_instructor_query, update_instructor_data, (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(500);
+        } else {
+            let get_update_instructor_query = ` \
+                SELECT \
+                Instructors.instructor_id AS id, \
+                CONCAT(Users.first_name, ' ', Users.last_name) AS staff, \
+                Courses.name AS course, \
+                Instructors.staff_bio AS bio \
+                FROM Instructors \
+                WHERE staff_id = ? AND course_id = ?; \
+            `;
+            db.pool.query(get_update_instructor_query, [staff_id, course_id], (error, rows, fields) => {
+                return res.json(rows);
+            })
+        }
+    })
 };
 
 exports.delete_instructor = (req, res, next) => {

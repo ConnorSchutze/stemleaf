@@ -9,7 +9,7 @@ const {
 
 router.get('/', get_instructors);
 router.post('/add', add_instructor);
-router.put('/update/:id', update_instructor);
+router.put('/update', update_instructor);
 router.delete('/delete/:id', delete_instructor);
 
 module.exports = router;
