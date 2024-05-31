@@ -1,5 +1,7 @@
 /* based on https://www.w3schools.com/css/css_navbar_horizontal.asp */
 
+@import url('colors.css');
+
 body {
     margin: 0;
 }
@@ -9,7 +11,7 @@ ul.topnav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333333;
+    background-color: var(--primary-dark);
 }
 
 ul.topnav::after {
@@ -25,7 +27,7 @@ ul.topnav li {
 
 ul.topnav li a {
     display: block;
-    color: white;
+    color: var(--primary-light);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -33,11 +35,11 @@ ul.topnav li a {
 }
 
 ul.topnav li a:hover:not(.active) {
-    background-color: #111;
+    background-color: var(--secondary-dark);
 }
 
 ul.topnav li a.active {
-    background-color: #04AA6D;
+    background-color: var(--primary-green);
 }
 
 ul.topnav li.right {

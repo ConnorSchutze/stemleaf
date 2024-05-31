@@ -1,18 +1,25 @@
+@import url('colors.css');
+
 html {
-    background-color: #d6d4d4;
+    background-color: var(--primary-light);
     font-family: 'Roboto', sans-serif;
 }
 
 h1 {
     text-align: center;
-    color: #000;
+    color: var(--primary-green);
     font-size: 50px;
 }
 
 h2 {
     text-align: center;
-    color: #000;
+    color: var(--primary-green);
     font-size: 35px;
+}
+
+p {
+    text-align: center;
+    color: var(--secondary-dark);
 }
 
 .formDiv {
@@ -43,25 +50,26 @@ h2 {
 form {
     width: 80%;
     text-align: center;
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondary-light);
     border-radius: 10px;
     padding: 20px; 
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff; 
+    background-color: var(--primary-light); 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;
     gap: 10px;
 }
 
-label {
+form label {
     font-weight: bold;
+    color: var(--primary-dark);
 }
 
 form input,
 select {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondary-light);
     border-radius: 5px;
     box-sizing: border-box;
     margin-right: 10px;
@@ -69,29 +77,31 @@ select {
 
 form input[type="submit"] {
     width: auto;
-    background-color: #333333;
-    color: #FFFFFF;
+    background-color: var(--primary-light);
+    color: var(--primary-green);
     cursor: pointer;
     align-self: center;
     border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 a button:hover,
 td button:hover,
 form input[type="submit"]:hover {
-    background-color: #161616;
+    background-color: var(--secondary-light);
 }
 
 a button,
 td button {
     width: auto;
-    background-color: #333333;
-    color: #FFFFFF;
+    background-color: var(--primary-light);
+    color: var(--primary-green);
     cursor: pointer;
     padding: 10px;
-    border: 1px solid #333;
+    border: 1px solid var(--primary-light);
     border-radius: 5px;
     box-sizing: border-box;
     margin-right: 10px;
     outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
