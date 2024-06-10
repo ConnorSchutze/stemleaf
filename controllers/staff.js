@@ -10,11 +10,11 @@ exports.get_staff = (req, res, next) => {
         staff_query = ` \
             SELECT \
             Staff.staff_id AS id,   \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff_name, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, \
             Staff.start_date AS start_date, \
             Staff.chg_hour AS chg_hour \
             FROM Staff \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             ORDER BY id; \
         `;
     } else {
@@ -22,11 +22,11 @@ exports.get_staff = (req, res, next) => {
         staff_query = ` \
             SELECT \
             Staff.staff_id AS id,   \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff_name, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, \
             Staff.start_date AS start_date, \
             Staff.chg_hour AS chg_hour \
             FROM Staff \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             WHERE CONCAT(Users.first_name, ' ', Users.last_name) LIKE '${staff_name}%' \
             ORDER BY id; \
         `;
@@ -79,11 +79,11 @@ exports.add_staff = (req, res, next) => {
         let add_instructor_query = ` \
             SELECT \
             Staff.staff_id AS id,   \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff_name, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, \
             Staff.start_date AS start_date, \
             Staff.chg_hour AS chg_hour \
             FROM Staff \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             WHERE Staff.staff_id = ?; \
         `;
 
@@ -100,12 +100,22 @@ exports.update_staff = (req, res, next) => {
     const staff_name = data.staff_name;
     const start_date = data.start_date;
     const chg_hour = parseInt(data.chg_hour);
+    const null_opt = data.null_opt;
 
-    const update_staff_query = ` \
-        UPDATE Staff \
-        SET start_date = ?, chg_hour = ? \
-        WHERE staff_id = ?; \
-    `;
+    let update_staff_query;
+    if (null_opt) {
+        update_staff_query = ` \
+            UPDATE Staff \
+            SET start_date = ?, chg_hour = ?, user_id = NULL \
+            WHERE staff_id = ?; \
+        `;
+    } else {
+        update_staff_query = ` \
+            UPDATE Staff \
+            SET start_date = ?, chg_hour = ? \
+            WHERE staff_id = ?; \
+        `;
+    }
 
     const update_staff_data = [start_date, chg_hour, staff_id];
 
@@ -117,11 +127,11 @@ exports.update_staff = (req, res, next) => {
             let get_update_instructor_query = ` \
             SELECT \
             Staff.staff_id AS id,   \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff_name, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, \
             Staff.start_date AS start_date, \
             Staff.chg_hour AS chg_hour \
             FROM Staff \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             WHERE Staff.staff_id = ?; \
             `;
             db.pool.query(get_update_instructor_query, [staff_id], (error, rows, fields) => {

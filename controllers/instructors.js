@@ -7,13 +7,13 @@ exports.get_instructors = (req, res, next) => {
         instructors_query = ` \
             SELECT \
             Instructors.instructor_id AS  id, \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, \
             Courses.name AS course, \
             Instructors.staff_bio AS bio \
             FROM Instructors \
             INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
             INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             ORDER BY id; \
         `;
     } else {
@@ -21,13 +21,13 @@ exports.get_instructors = (req, res, next) => {
         instructors_query = ` \
             SELECT \
             Instructors.instructor_id AS  id, \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, \
             Courses.name AS course, \
             Instructors.staff_bio AS bio \
             FROM Instructors \
             INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
             INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             WHERE Courses.name LIKE '${course_name}%' \
             ORDER BY id; \
         `;
@@ -68,13 +68,13 @@ exports.add_instructor = (req, res, next) => {
         let add_instructor_query = ` \
             SELECT \
             Instructors.instructor_id AS id, \
-            CONCAT(Users.first_name, ' ', Users.last_name) AS staff, \
+            COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, \
             Courses.name AS course, \
             Instructors.staff_bio AS bio \
             FROM Instructors \
             INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
             INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id \
-            INNER JOIN Users ON Staff.user_id = Users.user_id \
+            LEFT JOIN Users ON Staff.user_id = Users.user_id \
             WHERE Instructors.instructor_id = ?; \
         `;
         
@@ -107,13 +107,13 @@ exports.update_instructor = (req, res, next) => {
             let get_update_instructor_query = ` \
                 SELECT \
                 Instructors.instructor_id AS id, \
-                CONCAT(Users.first_name, ' ', Users.last_name) AS staff, \
+                COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, \
                 Courses.name AS course, \
                 Instructors.staff_bio AS bio \
                 FROM Instructors \
                 INNER JOIN Courses ON Instructors.course_id = Courses.course_id \
                 INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id \
-                INNER JOIN Users ON Staff.user_id = Users.user_id \
+                LEFT JOIN Users ON Staff.user_id = Users.user_id \
                 WHERE Instructors.staff_id = ? AND Instructors.course_id = ?; \
             `;
             db.pool.query(get_update_instructor_query, [staff_id, course_id], (error, rows, fields) => {

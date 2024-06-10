@@ -12,18 +12,21 @@ update_staff_form.addEventListener("submit", function (e) {
     let input_staff_name = document.getElementById("input_staff_user_update");
     let input_start_date = document.getElementById("input_staff_start_date_update");
     let input_chg_hour = document.getElementById("input_staff_chg_hour_update");
+    let input_null = document.getElementById("input_staff_nullable_update");
 
     let staff_user_id_value = input_staff_name.value;
     let staff_name_value = input_staff_name.options[input_staff_name.selectedIndex].text;
     let start_date_value = input_start_date.value;
     let chg_hour_value = input_chg_hour.value;
+    let null_value = input_null.checked ? 1 : 0;
 
     // Put our data we want to send in a javascript object
     let data = {
         staff_id: staff_user_id_value,
         staff_name: staff_name_value,
         start_date: start_date_value,
-        chg_hour: chg_hour_value
+        chg_hour: chg_hour_value,
+        null_opt: null_value
     }
 
     console.log(data);
