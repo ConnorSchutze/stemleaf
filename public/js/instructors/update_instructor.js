@@ -53,7 +53,7 @@ update_instructor_form.addEventListener("submit", function (e) {
 
 })
 
-
+// update the row in the data table
 function update_instructor_row(data, staff_id, course_id){
     let parsedData = JSON.parse(data);
     

@@ -10,6 +10,7 @@ exports.get_instructors = (req, res, next) => {
     let instructors_query;
 
     if (!req.query.course_name || req.query.course_name === '') {
+        // query displaying ids as string values by joining other entities
         instructors_query = ` \
             SELECT \
             Instructors.instructor_id AS  id, \
@@ -23,6 +24,7 @@ exports.get_instructors = (req, res, next) => {
             ORDER BY id; \
         `;
     } else {
+        // search query
         const course_name = req.query.course_name;
         instructors_query = ` \
             SELECT \
@@ -39,12 +41,14 @@ exports.get_instructors = (req, res, next) => {
         `;
     }
 
+    // staff query for staff data in hbs
     let staff_query = ' \
         SELECT Staff.staff_id, Users.first_name, Users.last_name \
         FROM Staff \
         INNER JOIN Users ON Staff.user_id = Users.user_id; \
     ';
 
+    // courses query for course data in hbs
     let courses_query = 'SELECT Courses.course_id, Courses.name FROM Courses;';
 
     db.pool.query(instructors_query, (error, rows, fields) => {
@@ -60,8 +64,10 @@ exports.get_instructors = (req, res, next) => {
 };
 
 exports.add_instructor = (req, res, next) => {
+    // constant data from request
     const { staff_id, course_id, staff_bio } = req.body;
 
+    // insert query with input operators
     const add_instructors_query = ` \
         INSERT INTO Instructors (staff_id, course_id, staff_bio) \
         VALUES (?, ?, ?); \
@@ -71,6 +77,7 @@ exports.add_instructor = (req, res, next) => {
 
     db.pool.query(add_instructors_query, new_instructor_data, (error, results) => {
         const new_instructor_id = results.insertId;
+        // updated instructory query for table
         let add_instructor_query = ` \
             SELECT \
             Instructors.instructor_id AS id, \
@@ -85,6 +92,7 @@ exports.add_instructor = (req, res, next) => {
         `;
         
         db.pool.query(add_instructor_query, [new_instructor_id], (error, rows, fields) => {
+            // just send the new row not everything
             return res.json(rows);
         })
     })
@@ -93,10 +101,12 @@ exports.add_instructor = (req, res, next) => {
 exports.update_instructor = (req, res, next) => {
     const data = req.body;
 
+    // updated data
     const staff_id = parseInt(data.staff_id);
     const course_id = parseInt(data.course_id);
     const staff_bio = data.staff_bio;
 
+    // update query based on two foreign keys
     const update_instructor_query = ` \
         UPDATE Instructors \
         SET staff_bio = ? \
@@ -110,6 +120,7 @@ exports.update_instructor = (req, res, next) => {
             console.log(error);
             res.sendStatus(500);
         } else {
+            // get updated row
             let get_update_instructor_query = ` \
                 SELECT \
                 Instructors.instructor_id AS id, \
@@ -132,6 +143,7 @@ exports.update_instructor = (req, res, next) => {
 exports.delete_instructor = (req, res, next) => {
     const instructor_id = req.params.id;
 
+    // delete based on id
     const delete_instructor_query = ` \
         DELETE FROM Instructors \
         WHERE instructor_id = ?; \
