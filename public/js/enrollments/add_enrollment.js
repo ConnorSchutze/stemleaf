@@ -70,6 +70,7 @@ add_row_to_enrollments = (data) => {
     let grade_cell = document.createElement("TD");
     let user_cell = document.createElement("TD");
     let course_cell = document.createElement("TD");
+    let delete_cell = document.createElement("TD");
 
     // Fill the cells with correct data
     id_cell.innerText = data.id;
@@ -78,12 +79,20 @@ add_row_to_enrollments = (data) => {
     user_cell.innerText = data.user;
     course_cell.innerText = data.course;
 
+    let delete_button = document.createElement("button");
+    delete_button.innerHTML = "Delete";
+    delete_button.onclick = function(){
+        delete_enrollment_id(data.id);
+    };
+    delete_cell.appendChild(delete_button);
+
     // Add the cells to the row 
     row.appendChild(id_cell);
     row.appendChild(status_cell);
     row.appendChild(grade_cell);
     row.appendChild(user_cell);
     row.appendChild(course_cell);
+    row.appendChild(delete_cell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', data.id);

@@ -9,6 +9,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -19,10 +20,12 @@
             <td class="data">{{this.first}}</td>
             <td class="data">{{this.last}}</td>
             <td class="data">{{this.email}}</td>
+            <td><button onclick="delete_user_id({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="/js/users/delete_user.js"></script>
 
 <h2>Search Users</h2>
 <p>Search by first name using the field below. Partial names are OK too!</p>
@@ -37,14 +40,14 @@
 <h2>Add Users</h2>
 <p>To add a new User, please enter their information below and click 'Submit'!</p>
 <form id="add_users_form">
+    <label for="input_users_email">Email: </label>
+    <input type="text" name="input_email" id="input_users_email_add">
+
     <label for="input_users_first_name">First Name: </label>
     <input type="text" name="input_first_name" id="input_users_first_name_add">
 
     <label for="input_users_last_name">Last Name: </label>
     <input type="text" name="input_last_name" id="input_users_last_name_add">
-
-    <label for="input_users_email">Email: </label>
-    <input type="text" name="input_email" id="input_users_email_add">
 
     <label for="input_passwords_password">Password: </label>
     <input type="password" name="input_password" id="input_passwords_password_add">
@@ -53,3 +56,26 @@
 </form>
 
 <script src="/js/users/add_user.js"></script>
+
+<h2>Updating Users</h2>
+<p>To update a specific user select their email from the drop-down menu</p>
+<form id="update_user_form">
+
+    <label for="input_users_email_update">Email: </label>
+    <select name="input_user_email" id="input_users_email_update">
+        <option value="">Select an Email</option>
+        {{#each data}}
+        <option value="{{this.email}}">{{this.email}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_users_first_name_update">First Name: </label>
+    <input type="text" name="input_first_name" id="input_users_first_name_update">
+
+    <label for="input_users_last_name_update">Last Name: </label>
+    <input type="text" name="input_last_name" id="input_users_last_name_update">
+
+    <input type="submit" value="Update User">
+</form>
+
+<script src="/js/users/update_user.js"></script>

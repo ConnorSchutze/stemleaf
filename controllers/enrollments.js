@@ -79,3 +79,61 @@ exports.add_enrollment = (req, res, next) => {
         })
     })
 };
+
+exports.update_enrollment = (req, res, next) => {
+    const data = req.body;
+
+    const status = data.status;
+    const grade = data.grade;
+    const user = data.user;
+    const course = data.course;
+
+    const update_enrollment_query = ` \
+        UPDATE Enrollments \
+        SET status = ?, grade = ? \
+        WHERE user_id = ? AND course_id = ?; \
+    `;
+
+    const update_enrollment_data = [status, grade, user, course];
+
+    db.pool.query(update_enrollment_query, update_enrollment_data, (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(500);
+        } else {
+            let get_update_enrollment_query = ` \
+            SELECT \
+            Enrollments.enrollment_id AS id, \
+            Enrollments.status AS status, \
+            Enrollments.grade AS grade, \
+            CONCAT(Users.first_name, ' ', Users.last_name) AS user, \
+            Courses.name AS course \
+            FROM Enrollments \
+            INNER JOIN Courses ON Enrollments.course_id = Courses.course_id \
+            INNER JOIN Users ON Enrollments.user_id = Users.user_id \
+            WHERE Enrollments.user_id = ? AND Enrollments.course_id = ?; \
+        `;
+            db.pool.query(get_update_enrollment_query, [user, course], (error, rows, fields) => {
+                return res.json(rows);
+            })
+        }
+    })
+};
+
+exports.delete_enrollment = (req, res, next) => {
+    const enrollment_id = req.params.id;
+
+    const delete_enrollment_query = ` \
+        DELETE FROM Enrollments \
+        WHERE enrollment_id = ?; \
+    `;
+
+    db.pool.query(delete_enrollment_query, [enrollment_id], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
+};

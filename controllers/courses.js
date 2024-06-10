@@ -60,3 +60,57 @@ exports.add_course = (req, res, next) => {
         })
     })
 };
+
+exports.update_course = (req, res, next) => {
+    const data = req.body;
+
+    const id = data.id;
+    const subject = data.subject;
+    const description = data.description;
+
+    const update_course_query = ` \
+        UPDATE Courses \
+        SET subject = ?, description = ? \
+        WHERE course_id = ?; \
+    `;
+
+    const update_course_data = [subject, description, id];
+
+    db.pool.query(update_course_query, update_course_data, (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(500);
+        } else {
+            let get_update_course_query = ` \
+            SELECT \
+            course_id AS id, \
+            name, \
+            subject, \
+            description \
+            FROM Courses \
+            WHERE course_id = ? \
+        `;
+            db.pool.query(get_update_course_query, [id], (error, rows, fields) => {
+                return res.json(rows);
+            })
+        }
+    })
+};
+
+exports.delete_course = (req, res, next) => {
+    const course_id = req.params.id;
+
+    const delete_course_query = ` \
+        DELETE FROM Courses \
+        WHERE course_id = ?; \
+    `;
+
+    db.pool.query(delete_course_query, [course_id], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
+};

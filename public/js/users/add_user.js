@@ -68,6 +68,7 @@ add_row_to_users = (data) => {
     let first_name_cell = document.createElement("TD");
     let last_name_cell = document.createElement("TD");
     let email_cell = document.createElement("TD");
+    let delete_cell = document.createElement("TD");
 
     // Fill the cells with correct data
     id_cell.innerText = data.id;
@@ -75,11 +76,19 @@ add_row_to_users = (data) => {
     last_name_cell.innerText = data.last;
     email_cell.innerText = data.email;
 
+    let delete_button = document.createElement("button");
+    delete_button.innerHTML = "Delete";
+    delete_button.onclick = function(){
+        delete_user_id(data.id);
+    };
+    delete_cell.appendChild(delete_button);
+
     // Add the cells to the row 
     row.appendChild(id_cell);
     row.appendChild(first_name_cell);
     row.appendChild(last_name_cell);
     row.appendChild(email_cell);
+    row.appendChild(delete_cell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', data.id);

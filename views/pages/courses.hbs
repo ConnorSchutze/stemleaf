@@ -9,6 +9,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -19,10 +20,12 @@
             <td class="data">{{this.name}}</td>
             <td class="data">{{this.subject}}</td>
             <td class="data">{{this.description}}</td>
+            <td><button onclick="delete_course_id({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="/js/courses/delete_course.js"></script>
 
 <h2>Search Courses</h2>
 <p>Search by subject using the field below. Partial names are OK too!</p>
@@ -50,3 +53,27 @@
 </form>
 
 <script src="/js/courses/add_course.js"></script>
+
+<h2>Updating Courses</h2>
+<p>To update a specific course select their name from the drop-down menu</p>
+<form id="update_course_form">
+
+    <label for="input_courses_name_update">Staff: </label>
+    <select name="input_course_name" id="input_courses_name_update">
+        <option value="">Select a Course</option>
+        {{#each data}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_courses_subject_update">Subject: </label>
+    <input type="text" name="input_subject" id="input_courses_subject_update">
+
+    <label for="input_courses_description_update">Description: </label>
+    <input type="text" name="input_description" id="input_courses_description_update">
+
+    <input type="submit" value="Update Course">
+
+</form>
+
+<script src="/js/courses/update_course.js"></script>

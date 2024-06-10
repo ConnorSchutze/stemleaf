@@ -9,6 +9,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -20,10 +21,12 @@
             <td class="data">{{this.grade}}</td>
             <td class="data">{{this.user}}</td>
             <td class="data">{{this.course}}</td>
+            <td><button onclick="delete_enrollment_id({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="/js/enrollments/delete_enrollment.js"></script>
 
 <h2>Search Enrollments</h2>
 <p>Search by user's last name using the field below. Partial names are OK too!</p>
@@ -64,3 +67,35 @@
 </form>
 
 <script src="/js/enrollments/add_enrollment.js"></script>
+
+<h2>Updating Enrollments</h2>
+<p>To update a specific enrollment select the user and the course being changed from the drop-down menu</p>
+<form id="update_enrollment_form">
+
+    <label for="input_enrollments_status_update">Status: </label>
+    <input type="checkbox" name="input_status" id="input_enrollments_status_update">
+
+    <label for="input_enrollments_grade_update">Grade: </label>
+    <input type="text" name="input_grade" id="input_enrollments_grade_update">
+
+    <label for="input_enrollments_staff_update">User: </label>
+    <select name="input_user_id" id="input_enrollments_user_update">
+        <option value="">Select a User</option>
+        {{#each users}}
+        <option value="{{this.user_id}}">{{this.first_name}} {{this.last_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input_enrollments_course_update">Course: </label>
+    <select name="input_course_id" id="input_enrollments_course_update">
+        <option value="">Select a Course</option>
+        {{#each courses}}
+        <option value="{{this.course_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit" value="Update Enrollment">
+
+</form>
+
+<script src="/js/enrollments/update_enrollment.js"></script>

@@ -65,6 +65,7 @@ add_row_to_courses = (data) => {
     let name_cell = document.createElement("TD");
     let subject_cell = document.createElement("TD");
     let description_cell = document.createElement("TD");
+    let delete_cell = document.createElement("TD");
 
     // Fill the cells with correct data
     id_cell.innerText = data.id;
@@ -72,11 +73,19 @@ add_row_to_courses = (data) => {
     subject_cell.innerText = data.subject;
     description_cell.innerText = data.description;
 
+    let delete_button = document.createElement("button");
+    delete_button.innerHTML = "Delete";
+    delete_button.onclick = function(){
+        delete_course_id(data.id);
+    };
+    delete_cell.appendChild(delete_button);
+
     // Add the cells to the row 
     row.appendChild(id_cell);
     row.appendChild(name_cell);
     row.appendChild(subject_cell);
     row.appendChild(description_cell);
+    row.appendChild(delete_cell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', data.id);
