@@ -52,12 +52,33 @@ DELETE FROM Passwords WHERE email = :user_email;
 -- get data for all staff
 SELECT * FROM Staff
 
+-- get data for all staff (pretty print)
+SELECT 
+Staff.staff_id AS id,   
+COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, 
+Staff.start_date AS start_date, 
+Staff.chg_hour AS chg_hour 
+FROM Staff 
+LEFT JOIN Users ON Staff.user_id = Users.user_id 
+ORDER BY id; 
+
 -- create a new staff member
 INSERT INTO Staff (start_date, chg_hour, user_id)
 VALUES (:start_date_data, :chg_hour_input, :user_id_data);
 
 -- get data for a particular staff memeber
 SELECT * FROM Staff WHERE staff_id = :staff_id_key;
+
+--get data for a particular staff member (pretty print)
+SELECT 
+Staff.staff_id AS id,   
+COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff_name, 
+Staff.start_date AS start_date, 
+Staff.chg_hour AS chg_hour 
+FROM Staff 
+LEFT JOIN Users ON Staff.user_id = Users.user_id 
+WHERE CONCAT(Users.first_name, ' ', Users.last_name) LIKE :staff_name%
+ORDER BY id; 
 
 -- update staff information
 UPDATE Staff
@@ -73,6 +94,18 @@ DELETE FROM Staff WHERE staff_id = :staff_id_key;
 -- get data for all Instructors
 SELECT * FROM Instructors
 
+-- get data for all Instructors (pretty print)
+SELECT 
+Instructors.instructor_id AS  id, 
+COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, 
+Courses.name AS course, 
+Instructors.staff_bio AS bio 
+FROM Instructors 
+INNER JOIN Courses ON Instructors.course_id = Courses.course_id 
+INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id 
+LEFT JOIN Users ON Staff.user_id = Users.user_id 
+ORDER BY id; 
+
 -- create a new Instructor
 INSERT INTO Instructors (staff_id, course_id, staff_bio)
 VALUES (:staff_id_key, :course_id_key, :staff_bio_input);
@@ -84,6 +117,19 @@ WHERE staff_id = :staff_id_key;
 -- get data for a particular Instructor course
 SELECT * FROM Instructors 
 WHERE instructor_id = :instructor_id_key;
+
+-- get data for a particular Instructor's course (pretty print)
+SELECT 
+Instructors.instructor_id AS  id, 
+COALESCE(CONCAT(Users.first_name, ' ', Users.last_name), 'unavailable') AS staff, 
+Courses.name AS course, 
+Instructors.staff_bio AS bio 
+FROM Instructors 
+INNER JOIN Courses ON Instructors.course_id = Courses.course_id 
+INNER JOIN Staff ON Instructors.staff_id = Staff.staff_id 
+LEFT JOIN Users ON Staff.user_id = Users.user_id 
+WHERE Courses.name LIKE :course_name% 
+ORDER BY id; 
 
 -- update an Instructor's information
 UPDATE Instructors
@@ -97,18 +143,18 @@ DELETE FROM Instructors WHERE instructor_id = :instructor_id_key;
 -- Courses
 -- -----------------------------------------------------
 -- get data for all Courses
-SELECT * FROM Courses
+SELECT * FROM Courses ORDER BY course_id;
 
 -- create a new Course
-INSERT INTO Courses (name, subject, description)
-VALUES (:name_input, :subject_input, :description_input);
+INSERT INTO Courses (course_name, subject, description)
+VALUES (:course_name_input, :subject_input, :description_input);
 
 -- get data for a particular Course
-SELECT * FROM Courses WHERE course_id = :course_id_key;
+SELECT * FROM Courses WHERE course_id = :course_id_key ORDER BY course_id;
 
 -- update Course information
 UPDATE Courses
-SET name = :name_input, subject = :subject_input, description = :description_input
+SET course_name = :course_name_input, subject = :subject_input, description = :description_input
 WHERE course_id = :course_id_key;
 
 -- delete a Course
@@ -119,6 +165,18 @@ DELETE FROM Courses WHERE course_id = :course_id_key;
 -- -----------------------------------------------------
 -- get data for all enrollments
 SELECT * FROM Enrollments
+
+-- get data for all enrollments (pretty print)
+SELECT 
+Enrollments.enrollment_id AS id, 
+Enrollments.status AS status, 
+Enrollments.grade AS grade, 
+CONCAT(Users.first_name, ' ', Users.last_name) AS user, 
+Courses.name AS course 
+FROM Enrollments 
+INNER JOIN Courses ON Enrollments.course_id = Courses.course_id 
+INNER JOIN Users ON Enrollments.user_id = Users.user_id 
+ORDER BY id; 
 
 -- create a new enrollment
 INSERT INTO Enrollments (status, grade, user_id, course_id)
@@ -135,6 +193,19 @@ WHERE course_id = :course_id_key;
 -- get data for a particular enrollment for a user
 SELECT * FROM Enrollments 
 WHERE user_id = :user_id_key AND course_id = :course_id_key;
+
+-- get data for a particular enrollment for a user (pretty print)
+SELECT 
+Enrollments.enrollment_id AS  id, 
+Enrollments.status AS status, 
+Enrollments.grade AS grade, 
+CONCAT(Users.first_name, ' ', Users.last_name) AS user, 
+Courses.name AS course 
+FROM Enrollments 
+INNER JOIN Courses ON Enrollments.course_id = Courses.course_id 
+INNER JOIN Users ON Enrollments.user_id = Users.user_id 
+WHERE Users.last_name LIKE :last_name% 
+ORDER BY id; 
 
 -- update Enrollment information
 UPDATE Enrollments
