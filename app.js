@@ -2,6 +2,12 @@
     SETUP
 */
 
+// Citation for the following code:
+// Date: 05/24/2024
+// Adapted from
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// Description: Used to setup Express, Handlebars, Routes (Homepage), and Listener
+
 // Express
 var path = require('path');
 var express = require('express');
@@ -22,6 +28,13 @@ app.engine('.hbs', engine({
 }));
 app.set('view engine', '.hbs');
 
+// Citation for the following code:
+// Date: 05/30/2024
+// Based on
+// Source URL: https://stackoverflow.com/questions/29235424/how-to-detect-if-page-is-current-in-each-pages
+// Description: Used to setup Middleware (Navbar UI (Active Page is Colored))
+//              I spent hours figuring out how to incorporate an active class with javascript
+
 // Register Handlebars helper function
 const handlebars = require('handlebars');
 handlebars.registerHelper('isActivePage', function(path, activePage) {
@@ -35,6 +48,12 @@ app.use((req, res, next) => {
 });
 
 const { out } = require('forever');
+
+// Citation for the following code:
+// Date: 05/27/2024
+// Based On
+// Source URL: https://www.geeksforgeeks.org/express-js-express-router-function/
+// Description: Used to Routes
 
 // Routes
 const courses_routes = require('./routes/courses');

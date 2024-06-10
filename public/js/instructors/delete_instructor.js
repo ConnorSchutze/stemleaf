@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 05/24/2024
+// Adapted from
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// Description: Front end changes from database queries
+
 function delete_instructor_id(id) {
     console.log("delete_instructor: start");
     // Put our data we want to send in a javascript object

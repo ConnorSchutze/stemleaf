@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 05/27/2024
+// Based On
+// Source URL: https://www.geeksforgeeks.org/express-js-express-router-function/
+// Description: Used to Routes
+
 const express = require('express');
 const router = express.Router();
 const {

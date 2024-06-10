@@ -1,5 +1,11 @@
 var db = require('../database/db_connector');
 
+// Citation for the following code:
+// Date: 05/27/2024
+// Adapted from
+// Source URL: instructors.js
+// Description: Routes, Queries, CRUD
+
 exports.get_enrollments = (req, res, next) => {
     let enrollments_query;
 

@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 05/27/2024
+// Adapted from
+// Source URL: delete_instructor.js
+// Description: Front end changes from database queries
+
 function delete_user_id(id) {
     console.log("delete_user: ", id);
     // Put our data we want to send in a javascript object

@@ -1,5 +1,11 @@
 var db = require('../database/db_connector');
 
+// Citation for the following code:
+// Date: 05/27/2024
+// Adapted from
+// Source URL: instructors.js
+// Description: Routes, Queries, CRUD
+
 exports.get_staff = (req, res, next) => {
     // Temporary function for getting courses
     // TODO: Implement the function to retrieve courses from the database

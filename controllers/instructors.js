@@ -1,5 +1,11 @@
 var db = require('../database/db_connector');
 
+// Citation for the following code:
+// Date: 05/24/2024
+// Adapted from
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// Description: Routes, Queries, CRUD
+
 exports.get_instructors = (req, res, next) => {
     let instructors_query;
 

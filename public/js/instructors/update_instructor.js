@@ -1,3 +1,8 @@
+// Citation for the following code:
+// Date: 05/24/2024
+// Adapted from
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// Description: Front end changes from database queries
 
 // Get the objects we need to modify
 let update_instructor_form = document.getElementById('update_instructor_form');

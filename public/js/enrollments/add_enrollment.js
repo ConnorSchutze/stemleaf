@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 05/27/2024
+// Adapted from
+// Source URL: add_instructor.js
+// Description: Front end changes from database queries
+
 // Get the objects we need to modify
 let add_enrollments_form = document.getElementById('add_enrollments_form');
 

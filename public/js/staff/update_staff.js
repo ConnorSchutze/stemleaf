@@ -1,3 +1,8 @@
+// Citation for the following code:
+// Date: 05/27/2024
+// Adapted from
+// Source URL: update_instructor.js
+// Description: Front end changes from database queries
 
 //Get the object we need to modify
 let update_staff_form = document.getElementById('update_staff_form');
