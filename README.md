@@ -2,6 +2,7 @@
 stemleaf is an online course structured service.
 
 ## Overview
+STEMLeaf is an online course structured service, offering 100 STEM related courses each with their own explorations and tests. STEMLeaf has 5,000 members, each requiring the use of one or more courses with their saved state. A database driven website will record the information regarding these courses, alongside the information of users partaking in these courses, and the staff teaching these courses. The overall purpose is to help users learn subjects they wish to learn and track their progress. 
 
 ## Table of Contents
 
